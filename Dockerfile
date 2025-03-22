@@ -25,7 +25,7 @@ RUN usermod -d /var/lib/mysql mysql
 # Set working directory
 WORKDIR /app
 
-# Invalidate cache
+# Invalidate cache to get repo updates
 #ARG CACHEBUST=1
 
 # Get repo
