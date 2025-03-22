@@ -41,9 +41,16 @@ def _initialize_db(supply_init_data = False):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
+
+        # Create database if it doesn't exist
+        query_database = f"CREATE DATABASE IF NOT EXISTS {MYSQL_DATABASE}"
+        cursor.execute(query_database)
+        conn.commit()
+
+        # Create animals table if it doesn't exist
         query_animals = f"""CREATE TABLE IF NOT EXISTS {table_animals} (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL
+            name VARCHAR(255) NOT NULL,
             type VARCHAR(255) NOT NULL
         )"""
         cursor.execute(query_animals)
@@ -64,9 +71,6 @@ def _initialize_db(supply_init_data = False):
     except Exception as e:
         print(f"Error initializing database: {e}")
         raise e
-
-def _find_next_id():
-    return max(animal["id"] for animal in animals) + 1
 
 @app.route('/')
 def index():
@@ -92,12 +96,11 @@ def get_animals():
 def add_animal():
     if request.is_json:
         animal = request.get_json()
-        animal["id"] = _find_next_id()
         try:
             conn = get_db_connection()
             cursor = conn.cursor()
             query = f"INSERT INTO {table_animals} (name, type) VALUES (%s, %s)"
-            cursor.execute(query, animal.name, animal.type)
+            cursor.execute(query, animal['name'], animal['type'])
             conn.commit()
             conn.close()
 
