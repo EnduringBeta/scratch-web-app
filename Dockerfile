@@ -14,8 +14,14 @@ RUN apt-get update && \
     apt-get install -y mysql-server python3 python3-pip python3-venv git && \
     apt-get clean
 
+# Ensure MySQL user has a valid home directory
+RUN usermod -d /var/lib/mysql mysql
+
 # Set working directory
 WORKDIR /app
+
+# Invalidate cache
+#ARG CACHEBUST=1
 
 # Get repo
 RUN git clone https://github.com/EnduringBeta/scratch-web-app.git
@@ -29,4 +35,4 @@ RUN python3 -m venv venv && \
 EXPOSE 3306 5000
 
 # Start web app
-CMD ["./run-app.sh"]
+CMD ["bash", "scratch-web-app/run-app.sh"]
