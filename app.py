@@ -11,7 +11,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 MYSQL_DATABASE=os.environ.get('MYSQL_DATABASE', 'mydatabase')
-MYSQL_USER=os.environ.get('MYSQL_USER', 'myuser')
+MYSQL_USER=os.environ.get('MYSQL_USER', 'root')
 MYSQL_PASSWORD=os.environ.get('MYSQL_PASSWORD', 'insecure')
 
 table_animals='animals'
