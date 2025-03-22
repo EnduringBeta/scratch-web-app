@@ -18,7 +18,8 @@ This uses Docker with Linux, MySQL, Python, and React with JS
 
 0. Clone this repository first: `git clone git@github.com:EnduringBeta/scratch-web-app.git`
 1. Setup MySQL?
-2. Run `./run-app.sh`, which starts the server API (`python3 app.py` and `flask run` also work)
+2. TODOROSS: set up same as Docker internally
+3. Run `./run-app.sh`, which starts the server API (`python3 app.py` and `flask run` also work)
 
 ## Troubleshooting
 

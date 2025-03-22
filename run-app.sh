@@ -14,6 +14,6 @@ service mysql start
 
 # Run the app!
 #python3 app.py
-flask run
+flask run --host=0.0.0.0 --port=5000
 
 echo "Ending Scratch Web App..."
