@@ -40,4 +40,4 @@ RUN python3 -m venv venv && \
 EXPOSE 3306 5000
 
 # Start web app
-CMD ["bash", "$REPO_DIR/run-app.sh"]
+CMD ["bash", "-c", "whoami && ls -lha $REPO_DIR && $REPO_DIR/run-app.sh"]
