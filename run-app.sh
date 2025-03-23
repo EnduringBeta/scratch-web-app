@@ -12,9 +12,12 @@ service mysql start && mysql -u root -p$MYSQL_PASSWORD < $REPO_DIR/init.sql
 
 # .env environment variables are set in Python using `load_dotenv`
 
-# Run the app!
+# Run the API (in background with "&")!
 # Use host arg for all addresses
-flask run --host=0.0.0.0 --port=5000
+flask run --host=0.0.0.0 --port=5000 &
 #python3 app.py
+
+# Run the UI!
+cd ui/ && npm start
 
 echo "Ending Scratch Web App..."

@@ -12,13 +12,25 @@ ENV MYSQL_PASSWORD=insecure
 
 ENV REPO_DIR=scratch-web-app
 
-ENV FLASK_APP=$REPO_DIR/app.py
+ENV FLASK_APP=$REPO_DIR/api/app.py
 ENV FLASK_ENV=development
 
 # Get needed packages
 RUN apt-get update && \
-    apt-get install -y mysql-server python3 python3-pip python3-venv git && \
+    apt-get install -y mysql-server python3 python3-pip python3-venv git curl && \
     apt-get clean
+
+# Get NVM
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+
+# ...in lieu of restarting the shell
+RUN \. "$HOME/.nvm/nvm.sh"
+
+# Get Node.js
+nvm install 22
+
+# Check installs
+RUN node -v && npm -v && mysql --version
 
 # Ensure MySQL user has a valid home directory
 RUN usermod -d /var/lib/mysql mysql
@@ -35,10 +47,13 @@ RUN git clone https://github.com/EnduringBeta/scratch-web-app.git
 # Use Python virtual environment to install and use project dependencies
 RUN python3 -m venv venv && \
     . venv/bin/activate && \
-    pip3 install -r $REPO_DIR/requirements.txt
+    pip3 install -r $REPO_DIR/api/requirements.txt
+
+# Install npm packages in UI sub-directory
+RUN cd ui/ && npm install
 
 # Expose MySQL and Flask ports
-EXPOSE 3306 5000
+EXPOSE 3000 3306 5000
 
 # Start web app
 CMD ["bash", "-c", "$REPO_DIR/run-app.sh"]
