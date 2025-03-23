@@ -105,7 +105,8 @@ def add_animal():
             conn = get_db_connection()
             cursor = conn.cursor()
             query = f"INSERT INTO {table_animals} (name, type) VALUES (%s, %s)"
-            cursor.execute(query, animal['name'], animal['type'])
+            animal_data = (animal['name'], animal['type'])
+            cursor.execute(query, animal_data)
             conn.commit()
             conn.close()
 
