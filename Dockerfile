@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.authors="Ross Llewallyn"
 # TODO: not secure in several ways!
 ENV MYSQL_ROOT_PASSWORD=insecure
 ENV MYSQL_DATABASE=mydatabase
-ENV MYSQL_USER=root
+ENV MYSQL_USER=myuser
 ENV MYSQL_PASSWORD=insecure
 
 ENV REPO_DIR=scratch-web-app
