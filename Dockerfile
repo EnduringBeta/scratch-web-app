@@ -20,12 +20,6 @@ RUN apt-get update && \
     apt-get install -y mysql-server python3 python3-pip python3-venv git nodejs npm && \
     apt-get clean
 
-# Get NVM
-#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
-
-# Source NVM script to install Node.js v22
-#RUN \. "$HOME/.nvm/nvm.sh" && nvm install 22 && nvm use 22
-
 # Ensure MySQL user has a valid home directory
 RUN usermod -d /var/lib/mysql mysql
 
@@ -47,7 +41,7 @@ RUN python3 -m venv venv && \
 RUN cd $REPO_DIR/ui/ && npm install
 
 # Expose MySQL and Flask ports
-EXPOSE 3000 3306 5000
+EXPOSE 3306 5000 3000
 
 # Start web app
 CMD ["bash", "-c", "$REPO_DIR/run-app.sh"]
