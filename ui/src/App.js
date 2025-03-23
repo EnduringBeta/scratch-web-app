@@ -5,10 +5,11 @@ import React, { useState, useEffect } from "react";
 
 function Card({ animal }) {
   return (
-    <div className="card">
-      <h2>{animal.name}</h2>
-      <h3>{animal.type}</h3>
-      <h3>{animal.id}</h3>
+    <div id="animal-{animal.id}" className="Card">
+      <div className="Container">
+        <h2>{animal.name}</h2>
+        <h3>{animal.type}</h3>
+      </div>
     </div>
   );
 }
@@ -26,13 +27,15 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1>Testing...</h1>
-        <div>
+        <h1>Scratch Web App</h1>
+      </header>
+      <body>
+        <div className="Animals">
           {animals.map((item, index) =>
             <Card key={index} animal={item} />
           )}
         </div>
-      </header>
+      </body>
     </div>
   );
 }
