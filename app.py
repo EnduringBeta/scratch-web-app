@@ -88,14 +88,34 @@ def get_animals():
         cursor = conn.cursor(dictionary=True)
         query = f"SELECT * FROM {table_animals}"
         cursor.execute(query)
-        rows = cursor.fetchall()
+        animals = cursor.fetchall()
         conn.close()
 
+        # Return animals
         # Flask doesn’t automatically convert lists to JSON
-        return jsonify(rows)
+        return jsonify(animals)
+
     except Exception as e:
-        print(f"Error getting animals: {e}")
-        raise e
+        return jsonify({"error": str(e)}), 500
+
+@app.get("/animals/<int:animal_id>", methods=["GET"])
+def get_animal(animal_id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        query = f""
+        cursor.execute(query, (animal_id,))
+        animal = cursor.fetchone()
+        conn.close()
+
+        if not animal:
+            return jsonify({"error": "Animal not found"}), 404
+
+        # Return animal
+        return jsonify(animal), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.post("/animals")
 def add_animal():
@@ -110,13 +130,64 @@ def add_animal():
             conn.commit()
             conn.close()
 
+            # Animal added
             return jsonify({'message': 'Animal added successfully!'}), 201
-        except Exception as e:
-            print(f"Error adding animal: {e}")
-            raise e
-    return {"error": "Request must be JSON"}, 415
 
-# TODOROSS: PUT, DELETE
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+    return jsonify({"error": "Request must be JSON"}), 415
+
+@app.route("/animals", methods=["PUT"])
+def update_animal():
+    if request.is_json:
+        animal = request.get_json()
+        a_id = animal.get('id')
+        a_name = animal.get('name')
+        a_type = animal.get('type')
+
+        if not a_id or not a_name or not a_type:
+            return jsonify({"error": "Missing fields"}), 400
+
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            query = f"UPDATE {table_animals} SET name = %s, type = %s WHERE id = %s"
+            animal_data = (a_name, a_type, a_id)
+            cursor.execute(query, animal_data)
+            conn.commit()
+            conn.close()
+
+            # No data found/changed
+            if cursor.rowcount == 0:
+                return jsonify({"error": "Animal not found"}), 404
+
+            # Animal updated
+            return jsonify({"message": "Animal updated successfully!"}), 500
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+    return jsonify({"error": "Request must be JSON"}), 415
+
+@app.route("/animals/<int:animal_id>", methods=["DELETE"])
+def delete_animal(animal_id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        query = f"DELETE FROM {table_animals} WHERE id = %s"
+        cursor.execute(query, (animal_id,))
+        conn.commit()
+        conn.close()
+
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Animal not found"}), 404
+
+        # Animal removed
+        return jsonify({"message": "Animal deleted successfully!"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run()
