@@ -7,7 +7,7 @@ function App() {
   const [animal, setData] = useState({id: 0, name: "", type: ""});
 
   useEffect(() => {
-    fetch("/animals/2").then((res) => res.json().then((data) {
+    fetch("/animals/2").then((res) => res.json().then((data) => {
         console.log(data);
         return setData({
           id: data.id,
