@@ -79,7 +79,7 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    return 'No animals here... Try "/animals"!'
+    return 'No animals here... Try "/animals" or port 3000!'
 
 @app.get("/animals")
 def get_animals():
