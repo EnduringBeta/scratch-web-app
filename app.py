@@ -103,7 +103,7 @@ def get_animal(animal_id):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        query = f""
+        query = f"SELECT * FROM {table_animals} WHERE id = %s"
         cursor.execute(query, (animal_id,))
         animal = cursor.fetchone()
         conn.close()
