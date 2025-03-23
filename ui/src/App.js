@@ -4,22 +4,16 @@ import './App.css';
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const [data, setdata] = useState({
-    id: 0,
-    name: "",
-    type: "",
-  });
+  const [animal, setData] = useState({id: 0, name: "", type: ""});
 
   useEffect(() => {
-    fetch("/animals/2").then((res) =>
-      res.json().then((data) => {
-        setdata({
+    fetch("/animals/2").then((res) => res.json().then((data) => {
+        setData({
           id: data.id,
           name: data.name,
           type: data.type,
         });
-      })
-    );
+      }));
   }, []);
 
   return (
@@ -28,9 +22,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Testing...</h1>
         {}
-        <p>{data.id}</p>
-        <p>{data.name}</p>
-        <p>{data.type}</p>
+        <p>{animal.id}</p>
+        <p>{animal.name}</p>
+        <p>{animal.type}</p>
       </header>
     </div>
   );
