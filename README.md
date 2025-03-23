@@ -12,7 +12,7 @@ This uses Docker with Linux, MySQL, Python, and React with JS
 
 1. Download [Docker Desktop](https://www.docker.com/) and install. Probably sign in. (This program is useful, but following steps will only use the command line functionality.)
 2. Inside the repo directory from step 0, run `docker build -t scratch-web-app .` to build the Docker image
-3. Run `docker run -d -p 3306:3306 -p 5000:5000 scratch-web-app` to start the MySQL and Flask server
+3. Run `docker run -d -p 3306:3306 -p 5000:5000 -p 3000:3000 scratch-web-app` to start the MySQL and Flask server
 
 These can also be run together via `redocker.sh`
 
