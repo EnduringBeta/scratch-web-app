@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     fetch("/animals").then((res) => res.json()).then((data) => {
-        setAnimals({id: data.id, name: data.name, type: data.type});
+        setAnimals(data);
       });
   }, []);
 
