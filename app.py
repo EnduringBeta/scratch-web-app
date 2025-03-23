@@ -63,7 +63,8 @@ def _initialize_db(supply_init_data = False):
             # Only insert data during init if no data present
             if result[0] == 0:
                 query_add_animals = f"INSERT INTO {table_animals} (name, type) VALUES (%s, %s)"
-                cursor.executemany(query_add_animals, init_animals)
+                animals_data = [(animal['name'], animal['type']) for animal in init_animals]
+                cursor.executemany(query_add_animals, animals_data)
                 print('Added initial animals!')
 
         conn.commit()
