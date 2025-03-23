@@ -23,6 +23,7 @@ These can also be run together via `redocker.sh`
 6. Update an animal via: `curl -i http://127.0.0.1:5000/animals -X PUT -H 'Content-Type: application/json' -d '{"id": 5, "name":"Sparrow", "type": "cat"}'`
 7. Get a single animal via: http://127.0.0.1:5000/animals/2
 8. Remove an animal via: `curl -i http://127.0.0.1:5000/animals/4 -X DELETE -H 'Content-Type: application/json'`
+9. Go to http://localhost:3000
 
 ## Local Setup
 
