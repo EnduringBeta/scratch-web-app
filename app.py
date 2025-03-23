@@ -11,7 +11,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 MYSQL_DATABASE=os.environ.get('MYSQL_DATABASE', 'mydatabase')
-MYSQL_USER=os.environ.get('MYSQL_USER', 'root')
+MYSQL_USER=os.environ.get('MYSQL_USER', 'myuser')
 MYSQL_PASSWORD=os.environ.get('MYSQL_PASSWORD', 'insecure')
 
 table_animals='animals'
@@ -72,6 +72,10 @@ def _initialize_db(supply_init_data = False):
         print(f"Error initializing database: {e}")
         raise e
 
+# Ensure database is initialized
+with app.app_context():
+    _initialize_db(SUPPLY_INIT_DATA)
+
 @app.route('/')
 def index():
     return 'No animals here... Try "/animals"!'
@@ -113,6 +117,4 @@ def add_animal():
 # TODOROSS: PUT, DELETE
 
 if __name__ == "__main__":
-    with app.app_context():
-        _initialize_db(SUPPLY_INIT_DATA)
     app.run()
