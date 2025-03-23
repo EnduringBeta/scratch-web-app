@@ -17,20 +17,14 @@ ENV FLASK_ENV=development
 
 # Get needed packages
 RUN apt-get update && \
-    apt-get install -y mysql-server python3 python3-pip python3-venv git curl && \
+    apt-get install -y mysql-server python3 python3-pip python3-venv git nodejs npm && \
     apt-get clean
 
 # Get NVM
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
 
-# ...in lieu of restarting the shell
-RUN \. "$HOME/.nvm/nvm.sh"
-
-# Get Node.js
-nvm install 22
-
-# Check installs
-RUN node -v && npm -v && mysql --version
+# Source NVM script to install Node.js v22
+#RUN \. "$HOME/.nvm/nvm.sh" && nvm install 22 && nvm use 22
 
 # Ensure MySQL user has a valid home directory
 RUN usermod -d /var/lib/mysql mysql
@@ -50,7 +44,7 @@ RUN python3 -m venv venv && \
     pip3 install -r $REPO_DIR/api/requirements.txt
 
 # Install npm packages in UI sub-directory
-RUN cd ui/ && npm install
+RUN cd $REPO_DIR/ui/ && npm install
 
 # Expose MySQL and Flask ports
 EXPOSE 3000 3306 5000
