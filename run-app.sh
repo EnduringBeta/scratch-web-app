@@ -18,6 +18,6 @@ flask run --host=0.0.0.0 --port=5000 &
 #python3 app.py
 
 # Run the UI!
-cd ui/ && npm start
+cd $REPO_DIR/ui/ && npm start
 
 echo "Ending Scratch Web App..."
