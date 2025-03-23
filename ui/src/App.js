@@ -29,13 +29,11 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Scratch Web App</h1>
       </header>
-      <body>
-        <div className="Animals">
-          {animals.map((item, index) =>
-            <Card key={index} animal={item} />
-          )}
-        </div>
-      </body>
+      <div className="Animals">
+        {animals.map((item, index) =>
+          <Card key={index} animal={item} />
+        )}
+      </div>
     </div>
   );
 }
