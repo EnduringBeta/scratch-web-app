@@ -3,12 +3,22 @@ import './App.css';
 
 import React, { useState, useEffect } from "react";
 
+function Card({ animal }) {
+  return (
+    <div className="card">
+      <h2>{animal.name}</h2>
+      <h3>{animal.type}</h3>
+      <h3>{animal.id}</h3>
+    </div>
+  );
+}
+
 function App() {
-  const [animal, setData] = useState({id: 0, name: "Getting name...", type: "Getting animal..."});
+  const [animals, setAnimals] = useState([]);
 
   useEffect(() => {
-    fetch("/animals/2").then((res) => res.json()).then((data) => {
-        setData({id: data.id, name: data.name, type: data.type});
+    fetch("/animals").then((res) => res.json()).then((data) => {
+        setAnimals({id: data.id, name: data.name, type: data.type});
       });
   }, []);
 
@@ -17,9 +27,11 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Testing...</h1>
-        <p>{animal.id}</p>
-        <p>{animal.name}</p>
-        <p>{animal.type}</p>
+        <div>
+          {animals.map((item, index) =>
+            <Card key={index} animal={item} />
+          )}
+        </div>
       </header>
     </div>
   );
