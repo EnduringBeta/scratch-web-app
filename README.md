@@ -25,6 +25,11 @@ This uses Docker with Linux, MySQL, Python, and React with JS
 
 * On Docker run, "Bind for 0.0.0.0:3306 failed: port is already allocated" - stop existing Docker container
 
+## Tips
+
+* `SELECT user FROM mysql.user;`
+* `SHOW DATABASES;`
+
 ## TODO
 
 * Ideally MySQL and Flask are in separate containers
