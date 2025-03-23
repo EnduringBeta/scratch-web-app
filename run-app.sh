@@ -5,7 +5,7 @@ echo "Starting Scratch Web App..."
 # Assuming in proper working directory
 
 # Start MySQL in background
-service mysql start
+service mysql start && mysql -u root -p$MYSQL_PASSWORD < $REPO_DIR/init.sql
 
 # Activate Python virtual environment, which is assumed to have been set up parallel to repo
 . venv/bin/activate
