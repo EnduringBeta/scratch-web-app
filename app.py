@@ -98,7 +98,7 @@ def get_animals():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.get("/animals/<int:animal_id>", methods=["GET"])
+@app.route("/animals/<int:animal_id>", methods=["GET"])
 def get_animal(animal_id):
     try:
         conn = get_db_connection()
