@@ -8,8 +8,7 @@ function App() {
 
   useEffect(() => {
     fetch("/animals/2").then((res) => res.json().then((data) => {
-        console.log(data);
-        return setData({
+        setData({
           id: data.id,
           name: data.name,
           type: data.type,
