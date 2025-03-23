@@ -28,12 +28,12 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Scratch Web App</h1>
+        <div className="Animals">
+          {animals.map((item, index) =>
+            <Card key={index} animal={item} />
+          )}
+        </div>
       </header>
-      <div className="Animals">
-        {animals.map((item, index) =>
-          <Card key={index} animal={item} />
-        )}
-      </div>
     </div>
   );
 }
