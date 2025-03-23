@@ -39,9 +39,8 @@
 
 .Animals {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  margin: 0 auto;
   max-width: 800px;
   column-gap: 10px;
   row-gap: 10px;
@@ -49,8 +48,8 @@
 }
 
 .Card {
-  background-color: floralwhite;
-  max-width: 250px;
+  background-color: darkslategrey;
+  width: 250px;
   border-radius: 5px;
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
