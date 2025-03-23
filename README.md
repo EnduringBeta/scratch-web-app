@@ -42,5 +42,5 @@ Environment variables may break things; running locally is untested.
 
 ## TODO
 
-* Ideally MySQL and Flask are in separate containers
+* Ideally MySQL, Flask, and React are in separate containers
 * Enable running locally more easily
