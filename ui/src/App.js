@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 
 function Card({ animal }) {
   return (
-    <div id="animal-{animal.id}" className="Card">
+    <div id="animal-${animal.id}" className="Card">
       <div className="Container">
         <h2>{animal.name}</h2>
         <h3>{animal.type}</h3>
